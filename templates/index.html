@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #chat-container {
+            width: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin: auto;
+        }
+
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            max-width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            max-width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ddd;
+            outline: none;
+        }
+
+        #send-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #send-btn:hover {
+            background-color: #45a049;
+        }
+
+        #chat-box {
+            height: 400px;  /* Adjust the height as needed */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-box" class="message-container"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." onkeydown="handleKeyPress(event)">
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatBox = document.getElementById('chat-box');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+
+            sendBtn.addEventListener('click', function () {
+                sendMessage();
+            });
+
+            function sendMessage() {
+                const userMessage = userInput.value.trim();
+                if (userMessage !== '') {
+                    displayMessage('You: ' + userMessage, 'user');
+                    userInput.value = '';
+
+                    // Send user input to the Flask backend
+                    fetch('/get_response', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `user_input=${userMessage}`,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const botMessage = 'Chatbot: ' + data.response;
+                        displayMessage(botMessage, 'bot');
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            }
+
+            function displayMessage(message, role) {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                messageElement.className = role === 'user' ? 'user-message' : 'bot-message';
+
+                chatBox.appendChild(messageElement);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            function handleKeyPress(event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
