@@ -19,7 +19,18 @@ def simple_chatbot(user_input):
         "Write an essay on Birds": ["Birds, with their diverse and captivating characteristics, play an integral role in the tapestry of our natural world. Spanning a vast array of species, from the majestic eagles soaring through the skies to the tiny hummingbirds flitting among flowers, birds exhibit remarkable adaptations and behaviors. Their ability to fly distinguishes them from most other animals, allowing for migration, foraging, and avoiding predators. Birds contribute significantly to ecosystems through pollination, seed dispersal, and controlling insect populations. Their intricate songs and vibrant plumage add aesthetic beauty to landscapes, making them a source of inspiration for art and culture. Despite their resilience, many bird species face threats such as habitat loss and climate change, underscoring the importance of conservation efforts to preserve the rich biodiversity they bring to our planet. Observing birds in their natural habitats provides a glimpse into the intricacies of nature and fosters a deeper appreciation for these feathered wonders."],
         "bye": ["Goodbye!", "See you later!", "Bye!"],
         "what is the formula of speed": ["Distance/Time"],
-        "formula for distance": ["Time x Speed"]
+        "formula for distance": ["Time x Speed"],
+        "why am i here": ["You have joined us for Ira Profusion 2023-24"],
+        "where is the fun zone": ["There is one in the New Bouilding on Grond Floor at right side, and one at this floor at the very other end"],
+        "give me names of different zone": ["Fun zone, Pottery, Science Squad, Steminist, Time Travellers, Robotics, Cafeteria, Byte the Bug, Zip-line"],
+        "where is the pottery": ["Outside the new building"],
+        "where is the science squad": ["New Building, first floor on left side"],
+        "where is the steminist": ["New Building, first floor on right side"],
+        "where is the time travellers": ["Old Building, first floor on left side"],
+        "where is the robotics": ["Old Building, second floor on right side"],
+        "where is the cafeteria": ["Old Building, ground floor on left side and New building in the Garden"],
+        "where is the byte the bug": ["Old Building, first floor on right side"],
+        "where is the zip-line": ["Old Building, on the terrace"],
         # Add more rules and responses as needed
     }
 
